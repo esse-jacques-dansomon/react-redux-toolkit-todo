@@ -3,7 +3,8 @@ import "./styles.css";
 import TaskForm from "./TaskForm";
 import TasksHeader from "./TasksHeader";
 import TasksList from "./TasksList";
-
+import {store} from "./redux/redux";
+import { Provider } from 'react-redux'
 export default function App() {
   const [tasks, setTasks] = useState([
     { id: 1, text: "Faire les courses", done: false },
@@ -37,18 +38,17 @@ export default function App() {
   };
 
   return (
-    <div className="container">
-      <article>
-        <TasksHeader tasks={tasks} />
-        <TasksList
-          tasks={tasks}
-          toggleTask={toggleTask}
-          deleteTask={deleteTask}
-        />
-        <footer>
-          <TaskForm addTask={addTask} />
-        </footer>
-      </article>
-    </div>
+      <Provider store={store}>
+        <div className="container">
+          <article>
+            <TasksHeader />
+            <TasksList/>
+            <footer>
+              <TaskForm />
+            </footer>
+          </article>
+        </div>
+      </Provider>
+
   );
 }
